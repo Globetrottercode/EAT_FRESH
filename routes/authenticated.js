@@ -23,7 +23,6 @@ regd_users.post("/login", async (req, res) => {
 });
 
 regd_users.get("/successlogin", async (req, res) => {
-  console.log("reached");
   res.status(200).json({ message: "User logged in", success: true });
 });
 

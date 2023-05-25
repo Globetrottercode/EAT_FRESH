@@ -24,8 +24,43 @@ public_users.post("/signup", async (req, res) => {
   );
 });
 
-public_users.get("/successregister", (req, res) => {
-  res.json({ message: "User registered", success: true });
+public_users.get("/", (req, res) => {
+  res.json({ a: "hello" });
 });
 
+public_users.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+public_users.get("/successregister", (req, res) => {
+  res.status(200).json({
+    message: "User registered",
+    success: true,
+  });
+});
+
+public_users.get("/failregister", (req, res) => {
+  res.status(200).json({
+    message: "User not registered",
+    success: false,
+  });
+});
+
+public_users.get(
+  "/auth/google/plans",
+  passport.authenticate("google", {
+    successRedirect: "http://localhost:3000/plans",
+    failureRedirect: "/failregister",
+  }),
+  (req, res) => {
+    res.status(200).json({
+      message: "User registered",
+      success: true,
+    });
+  }
+);
+
 module.exports.general = public_users;
+
+// city , state , pincode , floor(optional) , landmark , detailed
