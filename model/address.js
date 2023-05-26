@@ -3,11 +3,12 @@ const { Schema } = mongoose;
 
 const addressSchema = mongoose.Schema({
   username: String,
+  floor: String,
+  detailed: String,
+  landmark: String,
   city: String,
   state: String,
-  floor: String,
-  landmark: String,
-  detailed: String,
+  pincode: String,
 });
 
 const Address = mongoose.model("address", addressSchema);

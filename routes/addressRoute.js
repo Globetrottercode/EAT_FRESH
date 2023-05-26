@@ -4,7 +4,11 @@ const Address = require("../model/address").Address;
 
 addr.get("/", async (req, res) => {
   let data = await Address.find({ username: req.body.username });
-  res.json(data);
+  if (data[0]) {
+    res.json(data);
+  } else {
+    res.json({ message: "User has no saved addresses" });
+  }
 });
 
 addr.post("/", async (req, res) => {
