@@ -2,9 +2,14 @@ const express = require("express");
 const regd_users = express.Router();
 const passport = require("passport");
 const User = require("../model/users").User;
+const jwt = require("jsonwebtoken");
+
+let username;
+let jwtSecret = process.env.JWT_SECRET;
 
 regd_users.post("/login", async (req, res) => {
   console.log("login route", req.body);
+  username = req.body.username;
   const user = new User({
     username: req.body.username,
     password: req.body.password,
@@ -23,7 +28,13 @@ regd_users.post("/login", async (req, res) => {
 });
 
 regd_users.get("/successlogin", async (req, res) => {
-  res.status(200).json({ message: "User logged in", success: true });
+  let data = {
+    username: username,
+  };
+  let accessToken = jwt.sign(data, jwtSecret);
+  res
+    .status(200)
+    .json({ message: "User logged in", success: true, authToken: accessToken });
 });
 
 regd_users.get("/failedlogin", async (req, res) => {

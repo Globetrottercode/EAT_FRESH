@@ -49,7 +49,7 @@ public_users.get("/successregister", (req, res) => {
   res.status(200).json({
     message: "User registered",
     success: true,
-    token: accessToken,
+    authToken: accessToken,
   });
 });
 
