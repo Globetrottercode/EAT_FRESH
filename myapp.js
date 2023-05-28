@@ -91,6 +91,6 @@ app.listen(PORT, () => {
   console.log(`Server connected at port ${PORT}`);
 });
 
-module.exports.instance = instance;
+// module.exports = instance;
 
 // npx express-generator --views=ejs eat_fresh

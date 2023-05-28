@@ -11,7 +11,6 @@ const instance = new Razorpay({
 });
 
 const checkout = async (req, res) => {
-  console.log(req.body);
   const options = {
     amount: Number(req.body.amount * 100),
     currency: "INR",
