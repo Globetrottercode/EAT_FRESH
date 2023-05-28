@@ -22,6 +22,7 @@ const Address = require("./model/address").Address;
 const addr = require("./routes/addressRoute").addr;
 const myPlan = require("./routes/myPlanRoute").myPlan;
 const Razorpay = require("razorpay");
+const paymentRoute = require("./routes/paymentRoute").paymentRoute;
 
 app.use(cors());
 
@@ -80,6 +81,11 @@ app.use("/", public_users);
 app.use("/customer", regd_users);
 app.use("/customer/address", addr);
 app.use("/customer/myPlan", myPlan);
+app.use("/api", paymentRoute);
+
+app.get("/api/getkey", (req, res) =>
+  res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+);
 
 app.listen(PORT, () => {
   console.log(`Server connected at port ${PORT}`);
