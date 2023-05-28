@@ -20,6 +20,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Address = require("./model/address").Address;
 const addr = require("./routes/addressRoute").addr;
+const myPlan = require("./routes/myPlanRoute").myPlan;
 
 app.use(cors());
 
@@ -72,6 +73,7 @@ passport.use(
 app.use("/", public_users);
 app.use("/customer", regd_users);
 app.use("/customer/address", addr);
+app.use("/customer/myPlan", myPlan);
 
 app.listen(PORT, () => {
   console.log(`Server connected at port ${PORT}`);
