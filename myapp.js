@@ -21,6 +21,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Address = require("./model/address").Address;
 const addr = require("./routes/addressRoute").addr;
 const myPlan = require("./routes/myPlanRoute").myPlan;
+const Razorpay = require("razorpay");
 
 app.use(cors());
 
@@ -70,6 +71,11 @@ passport.use(
   )
 );
 
+const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_API_KEY,
+  key_secret: process.env.RAZORPAY_APT_SECRET,
+});
+
 app.use("/", public_users);
 app.use("/customer", regd_users);
 app.use("/customer/address", addr);
@@ -78,5 +84,7 @@ app.use("/customer/myPlan", myPlan);
 app.listen(PORT, () => {
   console.log(`Server connected at port ${PORT}`);
 });
+
+module.exports.instance = instance;
 
 // npx express-generator --views=ejs eat_fresh
