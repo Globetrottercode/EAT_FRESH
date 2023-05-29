@@ -30,9 +30,9 @@ myPlan.post("/", async (req, res) => {
 myPlan.get("/getmyPlan", async (req, res) => {
   let data = await MyPlan.find({ username: username });
   if (data[0]) {
-    res.json(data);
+    res.status(200).json(data);
   } else {
-    res.json({ message: "User has no saved plans", plans: 0 });
+    res.status(200).json({ message: "User has no saved plans", plans: 0 });
   }
 });
 

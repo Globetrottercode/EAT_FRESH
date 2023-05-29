@@ -32,9 +32,9 @@ creditRouter.get("/getCredits", async (req, res) => {
   // route for getting user credits
   let data = await Credit.find({ username: username });
   if (data[0]) {
-    res.json(data);
+    res.status(200).json(data);
   } else {
-    res.json({ message: "User has no saved credits" });
+    res.status(200).json({ message: "User has no saved credits" });
   }
 });
 
