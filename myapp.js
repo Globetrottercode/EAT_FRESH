@@ -23,6 +23,7 @@ const addr = require("./routes/addressRoute").addr;
 const myPlan = require("./routes/myPlanRoute").myPlan;
 const Razorpay = require("razorpay");
 const paymentRoute = require("./routes/paymentRoute").paymentRoute;
+const creditRouter = require("./routes/creditsRoute").creditRouter;
 
 app.use(cors());
 
@@ -72,16 +73,12 @@ passport.use(
   )
 );
 
-const instance = new Razorpay({
-  key_id: process.env.RAZORPAY_API_KEY,
-  key_secret: process.env.RAZORPAY_APT_SECRET,
-});
-
 app.use("/", public_users);
 app.use("/customer", regd_users);
 app.use("/customer/address", addr);
 app.use("/customer/myPlan", myPlan);
 app.use("/api", paymentRoute);
+app.use("/customer/credits/", creditRouter);
 
 app.get("/api/getkey", (req, res) =>
   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
