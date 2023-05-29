@@ -4,32 +4,37 @@ const Credit = require("../model/credits").Credit;
 
 let username;
 
-creditRouter.post("/", async (req, res) => {
+creditRouter.post("/createCredits", async (req, res) => {
   // creating credits for a user
-  const { username, credits } = req.body;
-  if (username && saveAs) {
-    let newCredit = new Credit();
-    newCredit.username = username;
-    newCredit.credits = credits;
-    let response = await newCredit.save();
-    res.status(200).json({ address: response, success: true });
-  } else {
-    res.status(400).json({ message: "Missing required field" });
-  }
+  const { username } = req.body;
+  let newCredit = new Credit();
+  newCredit.username = username;
+  newCredit.credits = 0;
+  let response = await newCredit.save();
+  res.status(200).json({ address: response, success: true });
 });
 
 creditRouter.post("/getCredits", async (req, res) => {
+  // storing username redirecting to getCredits route
   username = req.body.username;
   res.redirect("/customer/credits/getCredits");
 });
 
 creditRouter.get("/getCredits", async (req, res) => {
-  let data = await Address.find({ username: username });
+  // route for getting user credits
+  let data = await Credit.find({ username: username });
   if (data[0]) {
     res.json(data);
   } else {
     res.json({ message: "User has no saved credits" });
   }
+});
+
+creditRouter.put("/updateCredits", async (req, res) => {
+  let { credits, username } = req.body;
+  await Credit.findOneAndUpdate({ username: username }, { credits: credits });
+  let response = await Credit.find({ username: username });
+  res.json(response);
 });
 
 module.exports.creditRouter = creditRouter;
