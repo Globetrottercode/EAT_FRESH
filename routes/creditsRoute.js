@@ -10,8 +10,14 @@ creditRouter.post("/createCredits", async (req, res) => {
   let newCredit = new Credit();
   newCredit.username = username;
   newCredit.credits = 0;
-  let response = await newCredit.save();
-  res.status(200).json({ address: response, success: true });
+  await newCredit
+    .save()
+    .then((response) => {
+      res.status(200).json({ credits: response, success: true });
+    })
+    .catch((err) =>
+      res.json({ err: err, message: "Credits exist for this username" })
+    );
 });
 
 creditRouter.post("/getCredits", async (req, res) => {
