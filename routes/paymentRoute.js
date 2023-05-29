@@ -5,12 +5,15 @@ const crypto = require("crypto");
 const Payment = require("../model/payment.js").Payment;
 const Razorpay = require("razorpay");
 
+let username;
+
 const instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
   key_secret: process.env.RAZORPAY_APT_SECRET,
 });
 
 const checkout = async (req, res) => {
+  username = req.body.username;
   const options = {
     amount: Number(req.body.amount * 100),
     currency: "INR",
@@ -25,6 +28,7 @@ const checkout = async (req, res) => {
 };
 
 const paymentVerification = async (req, res) => {
+  console.log(req.body);
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
 
@@ -41,6 +45,7 @@ const paymentVerification = async (req, res) => {
     // Database comes here
 
     await Payment.create({
+      username,
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
