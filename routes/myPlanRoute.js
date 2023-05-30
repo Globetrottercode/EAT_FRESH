@@ -18,6 +18,7 @@ myPlan.post("/", async (req, res) => {
     newPlan.total = req.body.total;
     newPlan.additional = req.body.additional;
     newPlan.subtotal = req.body.subtotal;
+    newPlan.creditsUsed = req.body.creditsUsed;
     let response = await newPlan.save();
     res.status(200).json({ myPlan: response, success: true });
   } else {
