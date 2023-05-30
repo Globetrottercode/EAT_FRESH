@@ -13,6 +13,7 @@ let myPlanSchema = mongoose.Schema({
   total: Number,
   additional: Number,
   subtotal: Number,
+  creditsUsed: Number,
   planChangeTo: String,
   planChangeDate: String,
 });
