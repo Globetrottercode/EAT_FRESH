@@ -43,10 +43,24 @@ myPlan.post("/getmyPlan", (req, res) => {
 });
 
 myPlan.put("/updatePlan", async (req, res) => {
-  let result = MyPlan.findOneAndUpdate(
+  let date = new Date();
+  let curr =
+    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+  await MyPlan.findOneAndUpdate(
     { _id: req.body.id },
-    { $set: { selectedPlan: req.body.plan } }
+    {
+      $set: {
+        selectedPlan: req.body.changePlan,
+        planChangeFrom: req.body.oldPlan,
+        planChangePay: req.body.pay,
+        planChangeDate: curr,
+        planChangeCredits: req.body.addToCredits,
+      },
+    }
   );
+
+  let result = await MyPlan.find({ _id: req.body.id });
+  res.json(result);
 });
 
 module.exports.myPlan = myPlan;

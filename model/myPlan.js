@@ -17,7 +17,7 @@ let myPlanSchema = mongoose.Schema({
   planChangeFrom: String,
   planChangeDate: String,
   planChangePay: String, // +ve means user paid , -ve means user recieved credits
-  planChangeCredits: String,
+  planChangeCredits: Number,
 });
 
 const MyPlan = mongoose.model("myplan", myPlanSchema);
