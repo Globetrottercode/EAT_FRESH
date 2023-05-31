@@ -14,7 +14,7 @@ let myPlanSchema = mongoose.Schema({
   additional: Number,
   subtotal: Number,
   creditsUsed: Number,
-  planChangeTo: String,
+  planChangeFrom: String,
   planChangeDate: String,
   planChangeAmt: String, // +ve means user paid , -ve means user recieved credits
 });

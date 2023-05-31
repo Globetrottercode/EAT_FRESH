@@ -42,4 +42,11 @@ myPlan.post("/getmyPlan", (req, res) => {
   res.redirect("/customer/myPlan/getmyPlan");
 });
 
+myPlan.put("/updatePlan", async (req, res) => {
+  let result = MyPlan.findOneAndUpdate(
+    { _id: req.body.id },
+    { $set: { selectedPlan: req.body.plan } }
+  );
+});
+
 module.exports.myPlan = myPlan;
