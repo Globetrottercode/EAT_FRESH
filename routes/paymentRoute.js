@@ -65,4 +65,22 @@ paymentRoute.route("/checkout").post(checkout);
 
 paymentRoute.route("/paymentverification").post(paymentVerification);
 
+paymentRoute.get("/getTransactions", async (req, res) => {
+  let data = await Payment.find({ username: username });
+  if (data[0]) {
+    res.json(data);
+  } else {
+    res.json({
+      message: "User has made no previous transactions",
+      prevTransactions: 0,
+    });
+  }
+});
+
+paymentRoute.post("/getTransactions", async (req, res) => {
+  console.log("hello");
+  username = req.body.username;
+  res.redirect("/api/getTransactions");
+});
+
 module.exports.paymentRoute = paymentRoute;

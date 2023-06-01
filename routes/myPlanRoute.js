@@ -6,6 +6,7 @@ let username;
 
 myPlan.post("/", async (req, res) => {
   let newPlan = new MyPlan();
+  console.log(req.body);
   if (req.body.username) {
     newPlan.username = req.body.username;
     newPlan.name = req.body.name;
