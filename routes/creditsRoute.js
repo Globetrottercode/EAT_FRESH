@@ -7,9 +7,9 @@ let username;
 creditRouter.post("/createCredits", async (req, res) => {
   // creating credits for a user
   console.log("recieved request");
-  const { username } = req.body;
+  const { user_id } = req.body;
   let newCredit = new Credit();
-  newCredit.username = username;
+  newCredit.user_id = user_id;
   newCredit.credits = 0;
   await newCredit
     .save()
@@ -40,6 +40,7 @@ creditRouter.get("/getCredits", async (req, res) => {
 
 creditRouter.put("/updateCredits", async (req, res) => {
   let { credits, username } = req.body;
+  console.log(credits, username);
   await Credit.findOneAndUpdate({ username: username }, { credits: credits });
   let response = await Credit.find({ username: username });
   res.json(response);

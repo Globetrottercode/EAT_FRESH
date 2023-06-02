@@ -3,6 +3,7 @@ const public_users = express.Router();
 const User = require("../model/users").User;
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const { MyPlan } = require("../model/myPlan");
 
 let username;
 let jwtSecret = process.env.JWT_SECRET;
@@ -29,8 +30,10 @@ public_users.post("/signup", async (req, res) => {
   );
 });
 
-public_users.get("/", (req, res) => {
-  res.json({ a: "hello" });
+public_users.get("/getUsers/:username", async (req, res) => {
+  let username = req.params.username;
+  let result = await User.find({ username: username });
+  res.json(result);
 });
 
 public_users.get(
@@ -73,6 +76,28 @@ public_users.get(
     });
   }
 );
+
+public_users.put("/updateName", async (req, res) => {
+  let { name, username } = req.body;
+  await User.findOneAndUpdate({ username: username }, { name: name });
+  let response = await User.find({ username: username });
+  res.status(200).json(response);
+});
+
+// public_users.post("/getUsers", async (req, res) => {
+//   username = req.body;
+//   // await User.findOneAndUpdate({ username: username }, { name: name });
+//   let response = await User.find({ username: username });
+//   res.json(response);
+// });
+
+// public_users.put("/updateEmail", async (req, res) => {
+//   let { email, username } = req.body;
+//   console.log(credits, username);
+//   await MyPlan.findOneAndUpdate({ username: username }, { username : email });
+//   let response = await Credit.find({ username: username });
+//   res.json(response);
+// });
 
 module.exports.general = public_users;
 

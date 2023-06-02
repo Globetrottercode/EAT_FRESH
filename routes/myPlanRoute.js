@@ -39,6 +39,7 @@ myPlan.get("/getmyPlan", async (req, res) => {
 });
 
 myPlan.post("/getmyPlan", (req, res) => {
+  // console.log("hello");
   username = req.body.username;
   res.redirect("/customer/myPlan/getmyPlan");
 });
@@ -64,10 +65,11 @@ myPlan.put("/updatePlan", async (req, res) => {
   res.json(result);
 });
 
-myPlan.post("/getmyPlan", (req, res) => {
-  username = req.body.username;
-  res.redirect("/customer/myPlan/getmyPlan");
-});
+// myPlan.post("/getmyPlan", (req, res) => {
+//   console.log("aaaa");
+//   username = req.body.username;
+//   res.redirect("/customer/myPlan/getmyPlan");
+// });
 
 // meal - (Lunch/breakfast/dinner) & day - 0 /// meal - 0(no meal change) & day - 1
 

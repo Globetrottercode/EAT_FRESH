@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 let creditSchema = mongoose.Schema({
-  username: { type: String, unique: true, required: true },
+  user_id: { type: String, unique: true, required: true },
+  username: { type: String, unique: true },
   credits: Number,
 });
 
