@@ -18,6 +18,8 @@ let myPlanSchema = mongoose.Schema({
   planChangeDate: String,
   planChangePay: Number, // +ve means user paid , -ve means user recieved credits
   planChangeCredits: Number,
+  cancelDay: String,
+  cancelMeal: String,
 });
 
 const MyPlan = mongoose.model("myplan", myPlanSchema);
