@@ -7,9 +7,9 @@ let username;
 creditRouter.post("/createCredits", async (req, res) => {
   // creating credits for a user
   console.log("recieved request");
-  const { user_id } = req.body;
+  const { username } = req.body;
   let newCredit = new Credit();
-  newCredit.user_id = user_id;
+  newCredit.username = username;
   newCredit.credits = 0;
   await newCredit
     .save()
