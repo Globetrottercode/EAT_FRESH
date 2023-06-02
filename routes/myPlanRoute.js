@@ -64,4 +64,30 @@ myPlan.put("/updatePlan", async (req, res) => {
   res.json(result);
 });
 
+myPlan.post("/getmyPlan", (req, res) => {
+  username = req.body.username;
+  res.redirect("/customer/myPlan/getmyPlan");
+});
+
+// meal - (Lunch/breakfast/dinner) & day - 0 /// meal - 0(no meal change) & day - 1
+
+myPlan.put("/updateCancelPlan", async (req, res) => {
+  let date = new Date();
+  date.setDate(date.getDate() + 1);
+  let { meal, day } = req.body;
+  let nextDay =
+    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+  if (meal == 0) {
+    await MyPlan.findOneAndUpdate({ _id: req.body.id }, { cancelDay: nextDay });
+  } else {
+    cancelMeal = nextDay + "/" + meal;
+    await MyPlan.findOneAndUpdate(
+      { _id: req.body.id },
+      { cancelMeal: cancelMeal }
+    );
+  }
+  let result = await MyPlan.find({ _id: req.body.id });
+  res.json(result);
+});
+
 module.exports.myPlan = myPlan;
