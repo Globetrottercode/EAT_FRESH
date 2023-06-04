@@ -7,8 +7,8 @@ let username;
 myPlan.post("/", async (req, res) => {
   let newPlan = new MyPlan();
   console.log(req.body);
-  if (req.body.username) {
-    newPlan.username = req.body.username;
+  if (req.body.user_id) {
+    newPlan.user_id = req.body.user_id;
     newPlan.name = req.body.name;
     newPlan.phone = req.body.phone;
     newPlan.selectedPlan = req.body.selectedPlan;
@@ -29,8 +29,8 @@ myPlan.post("/", async (req, res) => {
   }
 });
 
-myPlan.get("/getmyPlan", async (req, res) => {
-  let data = await MyPlan.find({ username: username });
+myPlan.get("/getmyPlan/:userid", async (req, res) => {
+  let data = await MyPlan.find({ user_id: req.params.userid });
   if (data[0]) {
     res.status(200).json(data);
   } else {
@@ -38,11 +38,11 @@ myPlan.get("/getmyPlan", async (req, res) => {
   }
 });
 
-myPlan.post("/getmyPlan", (req, res) => {
-  // console.log("hello");
-  username = req.body.username;
-  res.redirect("/customer/myPlan/getmyPlan");
-});
+// myPlan.post("/getmyPlan", (req, res) => {
+//   // console.log("hello");
+//   username = req.body.username;
+//   res.redirect("/customer/myPlan/getmyPlan");
+// });
 
 myPlan.put("/updatePlan", async (req, res) => {
   let date = new Date();
@@ -64,7 +64,7 @@ myPlan.put("/updatePlan", async (req, res) => {
   let result = await MyPlan.find({ _id: req.body.id });
   res.json(result);
 });
-
+//
 // myPlan.post("/getmyPlan", (req, res) => {
 //   console.log("aaaa");
 //   username = req.body.username;

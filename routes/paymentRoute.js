@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const Payment = require("../model/payment.js").Payment;
 const Razorpay = require("razorpay");
 
+let user_id;
 let username;
 
 const instance = new Razorpay({
@@ -13,7 +14,7 @@ const instance = new Razorpay({
 });
 
 const checkout = async (req, res) => {
-  username = req.body.username;
+  user_id = req.body.user_id;
   const options = {
     amount: Number(req.body.amount * 100),
     currency: "INR",
@@ -45,7 +46,7 @@ const paymentVerification = async (req, res) => {
     // Database comes here
 
     await Payment.create({
-      username,
+      user_id,
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
@@ -65,8 +66,8 @@ paymentRoute.route("/checkout").post(checkout);
 
 paymentRoute.route("/paymentverification").post(paymentVerification);
 
-paymentRoute.get("/getTransactions", async (req, res) => {
-  let data = await Payment.find({ username: username });
+paymentRoute.get("/getTransactions/:user_id", async (req, res) => {
+  let data = await Payment.find({ user_id: req.params.user_id });
   if (data[0]) {
     res.json(data);
   } else {
@@ -77,10 +78,10 @@ paymentRoute.get("/getTransactions", async (req, res) => {
   }
 });
 
-paymentRoute.post("/getTransactions", async (req, res) => {
-  console.log("hello");
-  username = req.body.username;
-  res.redirect("/api/getTransactions");
-});
+// paymentRoute.post("/getTransactions", async (req, res) => {
+//   console.log("hello");
+//   username = req.body.username;
+//   res.redirect("/api/getTransactions");
+// });
 
 module.exports.paymentRoute = paymentRoute;

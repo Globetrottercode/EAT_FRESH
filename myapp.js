@@ -5,7 +5,7 @@ const app = express();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-let PORT = 3500;
+const PORT = process.env.PORT;
 const cors = require("cors");
 const { Schema } = mongoose;
 const public_users = require("./routes/general").general;
@@ -24,6 +24,7 @@ const myPlan = require("./routes/myPlanRoute").myPlan;
 const Razorpay = require("razorpay");
 const paymentRoute = require("./routes/paymentRoute").paymentRoute;
 const creditRouter = require("./routes/creditsRoute").creditRouter;
+const email_route = require("./routes/emailRoute").email_route;
 
 app.use(cors());
 
@@ -50,7 +51,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.use(User.createStrategy());
 
 const res = mongoose.connect(
-  "mongodb+srv://eatfresh251:tW20fbGGtNbl87yS@cluster0.vhw9ubl.mongodb.net/EatFreshDB",
+  `mongodb+srv://eatfresh251:${process.env.MONGO_PASS}@cluster0.vhw9ubl.mongodb.net/EatFreshDB`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
@@ -74,6 +75,7 @@ passport.use(
 );
 
 app.use("/", public_users);
+app.use("/email", email_route);
 app.use("/customer", regd_users);
 app.use("/customer/address", addr);
 app.use("/customer/myPlan", myPlan);

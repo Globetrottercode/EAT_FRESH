@@ -4,8 +4,8 @@ const Address = require("../model/address").Address;
 
 let username;
 
-addr.get("/getAddress", async (req, res) => {
-  let data = await Address.find({ username: username });
+addr.get("/getAddress/:user_id", async (req, res) => {
+  let data = await Address.find({ user_id: req.params.user_id });
   if (data[0]) {
     res.json(data);
   } else {
@@ -19,11 +19,11 @@ addr.post("/getAddress", (req, res) => {
 });
 
 addr.post("/", async (req, res) => {
-  const { username, saveAs, city, floor, landmark, detailed, pincode } =
+  const { user_id, saveAs, city, floor, landmark, detailed, pincode } =
     req.body;
-  if (username && saveAs) {
+  if (user_id && saveAs) {
     let address = new Address();
-    address.username = username;
+    address.user_id = user_id;
     address.city = city;
     address.saveAs = saveAs;
     address.floor = floor;

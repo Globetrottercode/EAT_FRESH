@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema({
+  user_id: {
+    type: String,
+  },
   username: {
     type: String,
-    required: true,
   },
   razorpay_order_id: {
     type: String,

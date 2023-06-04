@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 let myPlanSchema = mongoose.Schema({
+  user_id: String,
   username: String,
   name: String,
   phone: String,
@@ -18,8 +19,8 @@ let myPlanSchema = mongoose.Schema({
   planChangeDate: String,
   planChangePay: Number, // +ve means user paid , -ve means user recieved credits
   planChangeCredits: Number,
-  cancelDay: String,
-  cancelMeal: String,
+  cancelDay: String, // for cancellation feature
+  cancelMeal: String, // for cancellation featur
 });
 
 const MyPlan = mongoose.model("myplan", myPlanSchema);
