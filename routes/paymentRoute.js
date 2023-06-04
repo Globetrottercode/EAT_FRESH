@@ -4,9 +4,13 @@ const paymentRoute = express.Router();
 const crypto = require("crypto");
 const Payment = require("../model/payment.js").Payment;
 const Razorpay = require("razorpay");
+const sendMail = require("../email.js").sendMail;
 
 let user_id;
 let username;
+let message =
+  "<h3>Your payment has succesfully been made, The changes will be reflected in your dashboard</h3>";
+let subject = "Payment Succesful";
 
 const instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
@@ -14,6 +18,7 @@ const instance = new Razorpay({
 });
 
 const checkout = async (req, res) => {
+  username = req.body.username;
   user_id = req.body.user_id;
   const options = {
     amount: Number(req.body.amount * 100),
@@ -51,7 +56,7 @@ const paymentVerification = async (req, res) => {
       razorpay_payment_id,
       razorpay_signature,
     });
-
+    await sendMail(username, message, subject);
     res.redirect(
       `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
     );
