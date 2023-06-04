@@ -2,12 +2,13 @@ var nodemailer = require("nodemailer");
 
 async function sendMail(email, message, subject) {
   // create reusable transporter object using the default SMTP transport
+
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     auth: {
       user: "eatfresh251@gmail.com",
-      pass: "immamftrfrpfindp",
+      pass: process.env.EMAIL_PASS,
     },
   });
 
