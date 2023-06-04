@@ -30,17 +30,6 @@ public_users.post("/signup", async (req, res) => {
   );
 });
 
-public_users.get("/getUsers/:username", async (req, res) => {
-  let username = req.params.username;
-  let result = await User.find({ username: username });
-  res.json(result);
-});
-
-public_users.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
 public_users.get("/successregister", (req, res) => {
   console.log(username, "succesregister");
   let data = {
@@ -56,12 +45,30 @@ public_users.get("/successregister", (req, res) => {
   });
 });
 
-public_users.get("/failregister", (req, res) => {
-  res.status(200).json({
-    message: "User not registered",
-    success: false,
-  });
+public_users.get("/getUsers/:username", async (req, res) => {
+  let username = req.params.username;
+  let result = await User.find({ username: username });
+  res.json(result);
 });
+
+public_users.put("/updateName", async (req, res) => {
+  let { name, username } = req.body;
+  await User.findOneAndUpdate({ username: username }, { name: name });
+  let response = await User.find({ username: username });
+  res.status(200).json(response);
+});
+
+public_users.put("/updateEmail", async (req, res) => {
+  let { email, username } = req.body;
+  await User.findOneAndUpdate({ username: username }, { username: email });
+  let response = await User.find({ username: email });
+  res.status(200).json(response);
+});
+
+public_users.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
 public_users.get(
   "/auth/google/plans",
@@ -77,11 +84,11 @@ public_users.get(
   }
 );
 
-public_users.put("/updateName", async (req, res) => {
-  let { name, username } = req.body;
-  await User.findOneAndUpdate({ username: username }, { name: name });
-  let response = await User.find({ username: username });
-  res.status(200).json(response);
+public_users.get("/failregister", (req, res) => {
+  res.status(200).json({
+    message: "User not registered",
+    success: false,
+  });
 });
 
 // public_users.post("/getUsers", async (req, res) => {
