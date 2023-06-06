@@ -42,4 +42,24 @@ regd_users.get("/failedlogin", async (req, res) => {
   res.status(401).json({ message: "User log in failed", success: false });
 });
 
+regd_users.get("/getUsers/:username", async (req, res) => {
+  let username = req.params.username;
+  let result = await User.find({ username: username });
+  res.json(result);
+});
+
+regd_users.put("/updateName", async (req, res) => {
+  let { name, username } = req.body;
+  await User.findOneAndUpdate({ username: username }, { name: name });
+  let response = await User.find({ username: username });
+  res.status(200).json(response);
+});
+
+regd_users.put("/updateEmail", async (req, res) => {
+  let { email, username } = req.body;
+  await User.findOneAndUpdate({ username: username }, { username: email });
+  let response = await User.find({ username: email });
+  res.status(200).json(response);
+});
+
 module.exports.authenticated = regd_users;

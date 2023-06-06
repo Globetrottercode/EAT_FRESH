@@ -22,7 +22,7 @@ async function sendMail(email, message, subject) {
   });
   console.log("Message sent: %s", info.messageId);
   console.log(await info, "info");
-  return await info;
+  return info;
 }
 
 module.exports.sendMail = sendMail;
