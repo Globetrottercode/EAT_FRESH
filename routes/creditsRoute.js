@@ -18,7 +18,9 @@ creditRouter.post("/createCredits", async (req, res) => {
       res.status(200).json({ credits: response, success: true });
     })
     .catch((err) =>
-      res.json({ err: err, message: "Credits exist for this username" })
+      res
+        .status(400)
+        .json({ err: err, message: "Credits exist for this username" })
     );
 });
 
