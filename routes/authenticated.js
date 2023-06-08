@@ -62,4 +62,24 @@ regd_users.put("/updateEmail", async (req, res) => {
   res.status(200).json(response);
 });
 
+regd_users.post("/changepassword", function (req, res) {
+  User.findByUsername(req.body.username, (err, user) => {
+    if (err) {
+      res.json(err);
+    } else {
+      user.changePassword(
+        req.body.oldPassword,
+        req.body.newPassword,
+        function (err) {
+          if (err) {
+            res.json(err);
+          } else {
+            res.status(200).json({ message: "successfully changed password" });
+          }
+        }
+      );
+    }
+  });
+});
+
 module.exports.authenticated = regd_users;

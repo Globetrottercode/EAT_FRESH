@@ -73,7 +73,7 @@ public_users.get(
 public_users.get(
   "/auth/google/plans",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3000/plans",
+    successRedirect: "http://localhost:3500/auth/google/plans/success",
     failureRedirect: "/failregister",
   }),
   (req, res) => {
@@ -83,6 +83,19 @@ public_users.get(
     });
   }
 );
+
+public_users.get("/auth/google/plans/success", async (req, res) => {
+  console.log("hello");
+  let user = req.session.passport.user;
+  console.log(req.session.passport);
+  let data = {
+    username: user.username,
+  };
+  let accessToken = jwt.sign(data, jwtSecret);
+  res.redirect(
+    `http://localhost:3000/plans/google/${user.username}/${accessToken}/${user._id}`
+  );
+});
 
 public_users.get("/failregister", (req, res) => {
   res.status(200).json({

@@ -26,7 +26,10 @@ addr.post("/", async (req, res) => {
     address.user_id = user_id;
     address.city = city;
     address.saveAs = saveAs;
-    address.floor = floor;
+    if (address.floor !== undefined) {
+      console.log(address.floor);
+      address.floor = floor;
+    }
     address.landmark = landmark;
     address.detailed = detailed;
     address.pincode = pincode;
