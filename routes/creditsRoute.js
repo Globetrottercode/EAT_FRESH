@@ -59,6 +59,7 @@ creditRouter.get("/getCredits/:user_id", async (req, res) => {
 creditRouter.put("/updateCredits", async (req, res) => {
   let { credits, user_id } = req.body;
   console.log(credits, user_id);
+  console.log("reached");
   await Credit.findOneAndUpdate({ user_id: user_id }, { credits: credits });
   let response = await Credit.find({ user_id: user_id });
   res.json(response);
