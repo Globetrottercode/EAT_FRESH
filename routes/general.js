@@ -73,7 +73,7 @@ public_users.get(
 public_users.get(
   "/auth/google/plans",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3500/auth/google/plans/success",
+    successRedirect: "/auth/google/plans/success",
     failureRedirect: "/failregister",
   }),
   (req, res) => {
@@ -85,7 +85,7 @@ public_users.get(
 );
 
 public_users.get("/auth/google/plans/success", async (req, res) => {
-  console.log("hello");
+  console.log("hello----");
   let user = req.session.passport.user;
   console.log(req.session.passport);
   let data = {
