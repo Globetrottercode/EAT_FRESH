@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
 let creditSchema = mongoose.Schema({
   user_id: { type: String, required: true, index: true, unique: true },

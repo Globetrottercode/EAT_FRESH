@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
 let myPlanSchema = mongoose.Schema({
   user_id: String,

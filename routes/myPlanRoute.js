@@ -2,7 +2,7 @@ const express = require("express");
 const myPlan = express.Router();
 const MyPlan = require("../model/myPlan").MyPlan;
 
-let username;
+// let username;
 
 myPlan.post("/", async (req, res) => {
   let newPlan = new MyPlan();

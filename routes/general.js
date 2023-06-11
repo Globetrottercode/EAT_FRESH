@@ -3,7 +3,6 @@ const public_users = express.Router();
 const User = require("../model/users").User;
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const { MyPlan } = require("../model/myPlan");
 
 let username;
 let jwtSecret = process.env.JWT_SECRET;
