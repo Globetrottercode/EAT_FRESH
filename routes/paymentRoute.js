@@ -61,9 +61,7 @@ const paymentVerification = async (req, res) => {
       `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
     );
   } else {
-    res.status(400).json({
-      success: false,
-    });
+    res.redirect(`http://localhost:3000/failure`);
   }
 };
 
