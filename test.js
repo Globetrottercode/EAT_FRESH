@@ -48,4 +48,4 @@
 //   }
 // }
 
-// console.log(planValidator(end));
+console.log(planValidator(end));
