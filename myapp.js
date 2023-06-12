@@ -55,7 +55,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "https://backend-eat-fresh.onrender.com//auth/google/plans",
+      callbackURL: "https://backend-eat-fresh.onrender.com/auth/google/plans",
       // http://localhost:3500/auth/google/plans
     },
     function (accessToken, refreshToken, profile, cb) {
