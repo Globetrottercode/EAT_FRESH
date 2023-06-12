@@ -58,10 +58,10 @@ const paymentVerification = async (req, res) => {
     });
     await sendMail(username, message, subject);
     res.redirect(
-      `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
+      `https://eat-fresh-hygiene.netlify.app/paymentsuccess?reference=${razorpay_payment_id}`
     );
   } else {
-    res.redirect(`http://localhost:3000/failure`);
+    res.redirect(`https://eat-fresh-hygiene.netlify.app/failure`);
   }
 };
 

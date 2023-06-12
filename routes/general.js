@@ -92,7 +92,7 @@ public_users.get("/auth/google/plans/success", async (req, res) => {
   };
   let accessToken = jwt.sign(data, jwtSecret);
   res.redirect(
-    `http://localhost:3000/plans/google/${user.username}/${accessToken}/${user._id}/${user.name}`
+    `https://eat-fresh-hygiene.netlify.app/plans/google/${user.username}/${accessToken}/${user._id}/${user.name}`
   );
 });
 
