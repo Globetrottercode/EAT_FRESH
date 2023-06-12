@@ -55,7 +55,8 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3500/auth/google/plans",
+      callbackURL: "https://backend-eat-fresh.onrender.com//auth/google/plans",
+      // http://localhost:3500/auth/google/plans
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile);
@@ -80,6 +81,10 @@ app.use("/customer/address", addr);
 app.use("/customer/myPlan", myPlan);
 app.use("/api", paymentRoute);
 app.use("/customer/credits/", creditRouter);
+
+app.get("/", (req, res) => {
+  res.json({ message: "Eat Fresh backend is live and running !" });
+});
 
 app.get("/api/getkey", (req, res) =>
   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
